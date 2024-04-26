@@ -1,0 +1,15 @@
+
+start task m_util
+load setup setup.usf  
+cl da co 
+#clear trig_mod
+set trig_mod
+dis irq
+start task m_read_meb "./m_read_meb"
+start task m_collector
+start task m_transport
+start task m_stream_serv
+set fl 1 
+x "sleep 1" 
+set str 1
+sta ac

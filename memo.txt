@@ -1,0 +1,11 @@
+open file /DATA1/run/IDATEN_k46_run02_MS_ size=2000 first=1 number=100 -auto -disk
+open file /DATA1/run/IDATEN_k46_run01_Eu152_ size=2000 first=1 number=100 -auto -disk
+open file /DATA1/run/khala36_run02_Eu152_ size=2000 first=1 number=100 -auto -disk
+open file /DATA1/test/WR_PEX_run10_75_ size=1000 first=1 number=100 -auto -disk
+open file /DATA1/20240403/WR_PEX_run01_sra_ size=1000 first=1 number=100 -auto -disk
+open file /DATA1/20240403/WR_PEX_run03_co60_0087_0002_ size=1000 first=1 number=100 -auto -disk
+open file /DATA1/20240403/Run10_0000_Bi207_ size=1000 first=1 number=100 -auto -disk
+
+
+gosipcmd -w -x 1 0 0x33001c 0xffffffff
+
