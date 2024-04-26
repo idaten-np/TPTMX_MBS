@@ -177,7 +177,7 @@
 #define PRE_TRIG_TIME     0x100  // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
 //#define POST_TRIG_TIME  60000    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
 //#define POST_TRIG_TIME   1400    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-#define POST_TRIG_TIME   0x300    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
+#define POST_TRIG_TIME   0x200    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
 								  //when changing TRIG_TIME, "TRIG_CVT" in "setup.usf" also should be modified. Talk to Jaehwan.
 
 //----------------------------------------------------------------------------
@@ -456,11 +456,11 @@ static unsigned long l_selftrig[7] =
 {
 	0xffffffff^0x00000000 ,
 	0xffffffff^0x00000000 ,
-	0xffffffff^0xff00ff00 ,
-	0xffffffff^0xffffffff ,
-	0xffffffff^0xffffffff ,
-	0xffffffff^0xffffffff ,
-	0xffffffff^0xffffffff 
+	0xffffffff^0x00000000 ,
+	0xffffffff^(0x00000000) ,
+	0xffffffff^(0x00000000 | 0x3<<(2*11)) ,
+	0xffffffff^(0x00000000 | 0x3<<(2*10)) ,
+	0xffffffff^(0x00000000 | 0x3<<(2* 9)) 
 };
 #endif //IDATEN
 
