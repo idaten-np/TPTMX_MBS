@@ -81,17 +81,17 @@
 											// 41: TAMEX4 with PQDC1 Frontend
 
 
-											//#define DONT_RE_INITIALIZE_MODULES_AFTER_ERROR 1 // Henning
+//#define DONT_RE_INITIALIZE_MODULES_AFTER_ERROR 1 // Henning
 
-#define DATA_REDUCTION  0x1 // switch on meta data suppression for all readout tamex boards in case of no
-							//#define DATA_REDUCTION  0x0 // switch on meta data suppression for all readout tamex boards in case of no
-							// hit found in tamex:
-							// 0x1: meta data reduction enabled
-							// 0x0:                     disabled
+#define DATA_REDUCTION  0x1		// switch on meta data suppression for all readout tamex boards in case of no
+//#define DATA_REDUCTION  0x0 	// switch on meta data suppression for all readout tamex boards in case of no
+								// hit found in tamex:
+								// 0x1: meta data reduction enabled
+								// 0x0:                     disabled
 
 #define DISABLE_CHANNEL    0x0  // expert setting, leave as it is
 #define FIFO_ALMOSTFULL_TH 0x50 // expert setting, leave as it is
-								//#define FIFO_ALMOSTFULL_TH 0x30 // expert setting, leave as it is
+//#define FIFO_ALMOSTFULL_TH 0x30 // expert setting, leave as it is
 
 //----------------------------------------------------------------------------
 // Clock source specification for TDC clock
@@ -121,13 +121,13 @@
 								   //                 (Module 0 feeds 25 MHz CLK to TRBus) 
 								   //         0x20 -> External CLK from backplane (25 MHz)
 
-								   //----------------------------------------------------------------------------
-								   // PQDC/PADIWA Thresholds
-								   //----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
+// PQDC/PADIWA Thresholds
+//----------------------------------------------------------------------------
 
 #define SET_PQDC_TH_AT_INIT 1
 
-#define PQDC_DEF_TH_MV -800  // PQDC fast branch threshold in mV relative to baseline (signal AC coupled and amplified 20-30 times)
+#define PQDC_DEF_TH_MV -80  // PQDC fast branch threshold in mV relative to baseline (signal AC coupled and amplified 20-30 times)
 							 // neg signal >> negative value
 							 // pos signal >> positive value
 
@@ -175,8 +175,8 @@
 								 // ON  when PRE_TRIG_TIME and POST_TRIG_TIME are set to not 0
 
 #define PRE_TRIG_TIME     0x100  // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-								 //#define POST_TRIG_TIME  60000    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-								 //#define POST_TRIG_TIME   1400    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
+//#define POST_TRIG_TIME  60000    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
+//#define POST_TRIG_TIME   1400    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
 #define POST_TRIG_TIME   0x300    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
 								  //when changing TRIG_TIME, "TRIG_CVT" in "setup.usf" also should be modified. Talk to Jaehwan.
 
@@ -2031,6 +2031,7 @@ void f_tam_init ()
 #ifdef SET_PADI_TH_AT_INIT
 				if ( (l_sfp_tam_mode[l_i] == 2) || (l_sfp_tam_mode[l_i] == 3) )  // TAMEX2+PADI & TAMEX-PADI1
 				{
+					//printm (RON"DEBUG>>"RES" SET_PADI_TH_AT_INIT SPI DATA: 0x%x \n", PADI_DEF_TH);
 					l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_SPI_DAT, PADI_DEF_TH);
 					if (l_stat == -1)
 					{
@@ -2059,9 +2060,9 @@ void f_tam_init ()
 #ifdef SET_PQDC_TH_AT_INIT
 				if (l_sfp_tam_mode[l_i] == 41)  // TAMEX4 PQDC1
 				{
-					int l_pqdc_th = (int) (((1100.0 - l_pqdc_threshold_rel) / 3300.0) * 65535.0);
+					int l_pqdc_th = (int) (((1100.0 + l_pqdc_threshold_rel) / 3300.0) * 65535.0);
 					// Channel 1 / 4 on all 4 FPGAS
-					// printm (RON"DEBUG>>"RES" SPI DATA: 0x%x \n", (0x800000 | l_pqdc_th));
+					//printm (RON"DEBUG>>"RES" SET_PQDC_TH_AT_INIT SPI DATA: 0x%x\n", 0x800000 | l_pqdc_th);
 					l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_SPI_DAT, 0x800000 | l_pqdc_th);
 					if (l_stat == -1)
 					{

@@ -77,6 +77,8 @@ assembled_command = hex(int(joined,2))
 #print(assembled_command)
 
 print("gosipcmd -w -x {0} {1} 0x311018 {2}".format(sfp, dev, assembled_command))
+print("gosipcmd -w -x {0} {1} 0x311014 {2}1".format(sfp, dev, channel))
+print("gosipcmd -w -x {0} {1} 0x311014 {2}0".format(sfp, dev, channel))
 call(["gosipcmd", "-w", "-x", "{0}".format(sfp), "{0}".format(dev), "0x311018", "{0}".format(assembled_command)])
 call(["gosipcmd", "-w", "-x", "{0}".format(sfp), "{0}".format(dev), "0x311014", "{}1".format(channel)])
 call(["gosipcmd", "-w", "-x", "{0}".format(sfp), "{0}".format(dev), "0x311014", "{}0".format(channel)])
