@@ -154,7 +154,8 @@
 #define EN_TDC_CH  0xFFFFFFFF // channel enable 32-1 (0xffffffff -> all channels enabled)
 
 #define EN_TRIG_CH 0xFFFFFFFF // Trigger enable 32-1 (only on TAMEX-PADI1 so far)
-							  // 0xffffffff -> all channels enabled for trigger output
+							  // 0xffffffff -> all channels enabled for trigger output 0b1111
+							  // 0xaaaaaaaa -> all slow channels enabled for trigger output 0b1010
 
 #define DIS_TRIG_CH 0x00000000
 
@@ -454,6 +455,18 @@ static  long  l_tam_rst_stat  [MAX_SFP][MAX_SLAVE];
 #ifdef IDATEN
 static unsigned long l_selftrig[7] = 
 {
+	0xaaaaaaaa^0x00000000 ,
+	0xaaaaaaaa^0x00000000 ,
+	0xaaaaaaaa^0x00000000 ,
+	0xaaaaaaaa^(0x00000000) ,
+	0xaaaaaaaa^(0x00000000 | 0x2<<(2*11)) ,
+	0xaaaaaaaa^(0x00000000 | 0x2<<(2*10)) ,
+	0xaaaaaaaa^(0x00000000 | 0x2<<(2* 9)) 
+};
+// use 0b1010 instead of 0b1111 to trigger only on slow channels
+/*
+static unsigned long l_selftrig[7] = 
+{
 	0xffffffff^0x00000000 ,
 	0xffffffff^0x00000000 ,
 	0xffffffff^0x00000000 ,
@@ -461,7 +474,7 @@ static unsigned long l_selftrig[7] =
 	0xffffffff^(0x00000000 | 0x3<<(2*11)) ,
 	0xffffffff^(0x00000000 | 0x3<<(2*10)) ,
 	0xffffffff^(0x00000000 | 0x3<<(2* 9)) 
-};
+};*/ 
 #endif //IDATEN
 
 #ifdef PATTERN_UNIT
