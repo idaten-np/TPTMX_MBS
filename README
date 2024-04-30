@@ -3,3 +3,8 @@ mbs source code for TPTMX of IDATEN.
 
 to compile, you need to be in mbs node
 
+
+
+vimrc setting
+set tabstop=4
+set shiftwidth=4
