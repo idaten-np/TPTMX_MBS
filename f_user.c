@@ -175,11 +175,11 @@
 								 // OFF when PRE_TRIG_TIME and POST_TRIG_TIME are set to 0
 								 // ON  when PRE_TRIG_TIME and POST_TRIG_TIME are set to not 0
 
-#define PRE_TRIG_TIME     0x100  // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-//#define POST_TRIG_TIME  60000    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-//#define POST_TRIG_TIME   1400    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-#define POST_TRIG_TIME   0x200    // in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
-								  //when changing TRIG_TIME, "TRIG_CVT" in "setup.usf" also should be modified. Talk to Jaehwan.
+#define PRE_TRIG_TIME     0x200  
+// in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
+#define POST_TRIG_TIME   0x300    
+// in nr of time slices a 5.00 ns: max 0x7ff := 2047 * 5.00 ns
+//when changing PRE/POST_TRIG_TIME, "TRIG_CVT" in "setup.usf" also should be modified. Talk to Jaehwan.
 
 //----------------------------------------------------------------------------
 // MBS settings
@@ -453,6 +453,7 @@ static  long  l_tam_rst_stat  [MAX_SFP][MAX_SLAVE];
 #define IDATEN 1
 
 #ifdef IDATEN
+
 static unsigned long l_selftrig[7] = 
 {
 	0xaaaaaaaa^0x00000000 ,
@@ -474,7 +475,7 @@ static unsigned long l_selftrig[7] =
 	0xffffffff^(0x00000000 | 0x3<<(2*11)) ,
 	0xffffffff^(0x00000000 | 0x3<<(2*10)) ,
 	0xffffffff^(0x00000000 | 0x3<<(2* 9)) 
-};*/ 
+};*/
 #endif //IDATEN
 
 #ifdef PATTERN_UNIT
