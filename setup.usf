@@ -149,7 +149,7 @@ SBS_SETUP_TABLE: -
 #                 crate. nr: 0     1     2     3     4     5     6     7               
        TRIG_CVT           = (40,   0,   0,    0,    0,    0,    0,    0,-
 #       TRIG_CVT           = (20,   0,   0,    0,    0,    0,    0,    0,-
-       #TRIG_CVT           = (3000,   0,   0,    0,    0,    0,    0,    0,-
+#       TRIG_CVT           = (3000,   0,   0,    0,    0,    0,    0,    0,-
 # TRIG_CVT * 100 >= (PRE_TRIG_TIME + POST_TRIG_TIME)*5
 # TRIG_CVT >=20
 #                 crate. nr: 8     9     10    11    12    13    14    15
