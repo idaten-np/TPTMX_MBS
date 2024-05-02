@@ -153,7 +153,7 @@
 
 #define EN_TDC_CH  0xFFFFFFFF // channel enable 32-1 (0xffffffff -> all channels enabled)
 
-#define EN_TRIG_CH 0xFFFFFFFF // Trigger enable 32-1 (only on TAMEX-PADI1 so far)
+#define EN_TRIG_CH 0xAAAAAAAA // Trigger enable 32-1 (only on TAMEX-PADI1 so far)
 							  // 0xffffffff -> all channels enabled for trigger output 0b1111
 							  // 0xaaaaaaaa -> all slow channels enabled for trigger output 0b1010
 
@@ -456,13 +456,13 @@ static  long  l_tam_rst_stat  [MAX_SFP][MAX_SLAVE];
 
 static unsigned long l_selftrig[7] = 
 {
-	0xaaaaaaaa^0x00000000 ,
-	0xaaaaaaaa^0x00000000 ,
-	0xaaaaaaaa^0x00000000 ,
-	0xaaaaaaaa^(0x00000000) ,
-	0xaaaaaaaa^(0x00000000 | 0x2<<(2*11)) ,
-	0xaaaaaaaa^(0x00000000 | 0x2<<(2*10)) ,
-	0xaaaaaaaa^(0x00000000 | 0x2<<(2* 9)) 
+	EN_TRIG_CH & ~(0x00000000) ,
+	EN_TRIG_CH & ~(0x00000000) ,
+	EN_TRIG_CH & ~(0xffffff00) ,
+	DIS_TRIG_CH & ~(0x00000000) ,
+	DIS_TRIG_CH & ~(0x00000000 | 0x2<<(2*11)) ,
+	DIS_TRIG_CH & ~(0x00000000 | 0x2<<(2*10)) ,
+	DIS_TRIG_CH & ~(0x00000000 | 0x2<<(2* 9)) 
 };
 // use 0b1010 instead of 0b1111 to trigger only on slow channels
 /*
@@ -2364,7 +2364,7 @@ void f_tam_init ()
 #else //IDATEN	
 				if (l_i==1 && (l_j==0 || l_j==1))
 				{
-					l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_EN_TR, 0xffffffff); // set trigger enable register
+					l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_EN_TR, 0xaaaaaaaa); // set trigger enable register
 					if (l_stat == -1)
 					{
 						printm (RON"ERROR>>"RES" Writing TRIG enable register failed2\n");
@@ -2373,7 +2373,7 @@ void f_tam_init ()
 				}
 				else if (l_i==1 && (l_j ==2))
 				{
-					l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_EN_TR, 0xffffffff); // set trigger enable register
+					l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_EN_TR, 0xaaaaaaaa); // set trigger enable register
 																				   //l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_EN_TR, 0x00ff00ff); // set trigger enable register
 																				   //l_stat = f_pex_slave_wr (l_i, l_j, REG_TAM_EN_TR, 0x00ff0000); // set trigger enable register
 					if (l_stat == -1)
